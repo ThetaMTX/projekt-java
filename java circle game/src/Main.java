@@ -56,17 +56,13 @@ static class Menu extends JPanel implements ActionListener {
         this.mainPanel = mainPanel;
 
         JPanel backgroundPanel = new JPanel(new FlowLayout());
-        //backgroundPanel.setBackground(Color.BLACK);
-        //JLabel backgroundLabel = new JLabel(new ImageIcon("resource/menu-background.jpg"));
-       // backgroundPanel.add(backgroundLabel);
-        //add(backgroundPanel, BorderLayout.CENTER);
         setLayout(new FlowLayout(FlowLayout.CENTER, 60, 300));
 
         JButton normalButton = new JButton("Normal");
         normalButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int CIRCLE_SPEED = 10;
                 Game game = new Game(cardLayout, mainPanel);
+                game.CIRCLE_SPEED = 10;
                 game.start();
                 mainPanel.add(game, "game");
                 cardLayout.show(mainPanel, "game");
@@ -77,8 +73,8 @@ static class Menu extends JPanel implements ActionListener {
         JButton hardButton = new JButton("Hard");
         hardButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int CIRCLE_SPEED = 20;
                 Game game = new Game(cardLayout, mainPanel);
+                game.CIRCLE_SPEED = 20;
                 game.start();
                 mainPanel.add(game, "game");
                 cardLayout.show(mainPanel, "game");
@@ -154,7 +150,7 @@ static class Menu extends JPanel implements ActionListener {
 
     static class Game extends JPanel implements ActionListener, MouseListener {
     private static final int CIRCLE_DIAMETER = 60;
-    private static final int CIRCLE_SPEED = 10;
+    private static int CIRCLE_SPEED = 10;
     private static final int SPAWN_DELAY = 1000;
     private static final int NUM_LIVES = 3;
     private static final int GAME_DURATION = 20_000;
@@ -172,6 +168,7 @@ static class Menu extends JPanel implements ActionListener {
 
     int FPS = 60;
 
+    private Timer soundTimer;
 
     public Game(CardLayout cardLayout, JPanel mainPanel) {
         this.cardLayout = cardLayout;
@@ -183,7 +180,9 @@ static class Menu extends JPanel implements ActionListener {
         circles = new ArrayList<>();
         score = 0;
         lives = NUM_LIVES;
+
     }
+
 
     public void start() {
         reset();
@@ -259,19 +258,6 @@ static class Menu extends JPanel implements ActionListener {
         }
     }
 
-    /*
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        for (Circle circle : circles) {
-            circle.draw(g2d);
-        }
-        g.setColor(Color.WHITE);
-        g.drawString("Score: " + score, 10, 20);
-        g.drawString("Lives: " + lives, 10, 40);
-    }
-*/
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -452,5 +438,3 @@ static class Menu extends JPanel implements ActionListener {
     }
 
 }}
-
-
